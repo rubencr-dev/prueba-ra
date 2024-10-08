@@ -10,18 +10,37 @@
   <body style="margin: 0; overflow: hidden;">
     <!-- Escena A-Frame con AR.js habilitado -->
     <a-scene embedded arjs>
-      
+
       <!-- Definir el marcador que actuará como disparador -->
-      <a-marker type="pattern" url="0.patt">
+      <a-marker type="pattern" url="0.patt" id="marker">
         <!-- El video que se sobrepondrá al marcador -->
-        <a-video src="#video" width="2" height="1" position="0 0.5 0"></a-video>
+        <a-video id="video" width="2" height="1" position="0 0.5 0" rotation="0 0 0"></a-video>
       </a-marker>
-      
+
       <!-- Cámara de la escena -->
       <a-entity camera></a-entity>
 
-      <!-- Definir el video -->
-      <video id="video" src="0.mp4" autoplay="true" loop="true" style="display: none;"></video>
     </a-scene>
+
+    <!-- Definir el video para controlarlo desde el HTML -->
+    <video id="video-asset" src="0.mp4" autoplay="false" loop="true" style="display: none;"></video>
+
+    <script>
+      // Esperar a que el marcador sea detectado
+      document.querySelector("#marker").addEventListener("markerFound", (event) => {
+        // Mostrar el video cuando el marcador se detecta
+        const videoElement = document.querySelector("#video-asset");
+        const videoEntity = document.querySelector("#video");
+        
+        videoEntity.setAttribute('src', '#video-asset');
+        videoElement.play();
+      });
+
+      // Detener el video cuando el marcador no está visible
+      document.querySelector("#marker").addEventListener("markerLost", (event) => {
+        const videoElement = document.querySelector("#video-asset");
+        videoElement.pause();
+      });
+    </script>
   </body>
 </html>
