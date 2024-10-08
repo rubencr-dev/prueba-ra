@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>ER4</title>
+    <title>ER5</title>
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     <!-- include ar.js for A-Frame -->
 	<script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
   </head>
-<body style="margin : 0px; overflow: hidden;">
+<body style="margin: 0px; overflow: hidden;">
   <a-scene embedded arjs>
     <!-- handle marker with hiro preset -->
     <a-marker preset="hiro">
-      <a-entity id="youtube-video" geometry="primitive: plane; width: 2; height: 1" position="0 0.5 0">
-          <a-entity 
-            geometry="primitive: plane; width: 2; height: 1" 
-            material="shader: flat; src: https://img.youtube.com/vi/n_XUhg7UnTM/maxresdefault.jpg" 
-            position="0 0 0" rotation="-90 0 0">
-          </a-entity>
-          <a-video id="video" src="https://www.youtube.com/embed/n_XUhg7UnTM?autoplay=1" width="4" height="2.2" position="0 0 0" rotation="-90 0 0"  visible="true"></a-video>
-        </a-entity>
+      <!-- Plano con la imagen de vista previa de YouTube -->
+      <a-entity geometry="primitive: plane; width: 2; height: 1" 
+                material="shader: flat; src: https://img.youtube.com/vi/n_XUhg7UnTM/maxresdefault.jpg" 
+                position="0 0.5 0" rotation="-90 0 0">
+      </a-entity>
+      
+      <!-- Texto para abrir YouTube -->
+      <a-entity position="0 0 0.5" rotation="-90 0 0" 
+                geometry="primitive: plane; width: 2; height: 0.5"
+                material="color: #FFF"
+                text="value: Haz clic aquí para abrir el video; color: #000; align: center;"
+                event-set__click="_target: window; _event: click; href: https://www.youtube.com/watch?v=n_XUhg7UnTM">
+      </a-entity>
     </a-marker>
+
     <!-- add a simple camera -->
     <a-entity camera></a-entity>
   </a-scene>
