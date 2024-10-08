@@ -13,8 +13,15 @@
 
       <!-- Definir el marcador que actuará como disparador -->
       <a-marker type="pattern" url="0.patt" id="marker">
-        <!-- El video que se sobrepondrá al marcador -->
-        <a-video id="video" width="2" height="1" position="0 0.5 0" rotation="0 0 0"></a-video>
+        <!-- Iframe para mostrar el video de YouTube -->
+        <a-entity id="youtube-video" geometry="primitive: plane; width: 2; height: 1" position="0 0.5 0">
+          <a-entity 
+            geometry="primitive: plane; width: 2; height: 1" 
+            material="shader: flat; src: https://img.youtube.com/vi/n_XUhg7UnTM/maxresdefault.jpg" 
+            position="0 0 0.01">
+          </a-entity>
+          <a-video id="video" src="https://www.youtube.com/embed/n_XUhg7UnTM?autoplay=1&mute=1" width="2" height="1" position="0 0 0"></a-video>
+        </a-entity>
       </a-marker>
 
       <!-- Cámara de la escena -->
@@ -22,24 +29,17 @@
 
     </a-scene>
 
-    <!-- Definir el video para controlarlo desde el HTML -->
-    <video id="video-asset" src="0.mp4" autoplay="false" loop="true" style="display: none;"></video>
-
     <script>
       // Esperar a que el marcador sea detectado
-      document.querySelector("#marker").addEventListener("markerFound", (event) => {
-        // Mostrar el video cuando el marcador se detecta
-        const videoElement = document.querySelector("#video-asset");
-        const videoEntity = document.querySelector("#video");
-        
-        videoEntity.setAttribute('src', '#video-asset');
-        videoElement.play();
+      document.querySelector("#marker").addEventListener("markerFound", () => {
+        const videoEntity = document.querySelector("#youtube-video");
+        videoEntity.setAttribute('visible', 'true'); // Hacer visible el video
       });
 
       // Detener el video cuando el marcador no está visible
-      document.querySelector("#marker").addEventListener("markerLost", (event) => {
-        const videoElement = document.querySelector("#video-asset");
-        videoElement.pause();
+      document.querySelector("#marker").addEventListener("markerLost", () => {
+        const videoEntity = document.querySelector("#youtube-video");
+        videoEntity.setAttribute('visible', 'false'); // Hacer invisible el video
       });
     </script>
   </body>
