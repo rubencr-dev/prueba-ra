@@ -3,7 +3,7 @@
   <head>
     <title>AR.js Video Overlay</title>
     <!-- A-Frame library -->
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
     <!-- AR.js library -->
     <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.7.2/aframe/build/aframe-ar.js"></script>
   </head>
@@ -12,7 +12,7 @@
     <a-scene embedded arjs>
 
       <!-- Definir el marcador que actuará como disparador -->
-      <a-marker type="pattern" url="0.patt" id="marker">
+      <a-marker type="pattern" url="er.patt" id="marker">
         <!-- Iframe para mostrar el video de YouTube -->
         <a-entity id="youtube-video" geometry="primitive: plane; width: 2; height: 1.125" position="0 0.5 0">
           <a-entity 
