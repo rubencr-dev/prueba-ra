@@ -12,15 +12,15 @@
     <a-scene embedded arjs>
 
       <!-- Definir el marcador que actuará como disparador -->
-      <a-marker type="pattern" url="er.patt" id="marker">
+      <a-marker type="pattern" url="0.patt" id="marker">
         <!-- Iframe para mostrar el video de YouTube -->
-        <a-entity id="youtube-video" geometry="primitive: plane; width: 2; height: 1" position="0 0.5 0">
+        <a-entity id="youtube-video" geometry="primitive: plane; width: 2; height: 1.125" position="0 0.5 0">
           <a-entity 
-            geometry="primitive: plane; width: 2; height: 1" 
-            material="shader: flat; src: https://img.youtube.com/vi/n_XUhg7UnTM/maxresdefault.jpg" 
+            geometry="primitive: plane; width: 2; height: 1.125" 
+            material="shader: flat; src: https://img.youtube.com/vi/YOUR_VIDEO_ID/maxresdefault.jpg" 
             position="0 0 0.01">
           </a-entity>
-          <a-video id="video" src="https://www.youtube.com/embed/n_XUhg7UnTM?autoplay=1&mute=1" width="2" height="1" position="0 0 0"></a-video>
+          <a-video id="video" src="https://www.youtube.com/embed/YOUR_VIDEO_ID?autoplay=1&mute=1" width="2" height="1.125" position="0 0 0"></a-video>
         </a-entity>
       </a-marker>
 
@@ -30,6 +30,20 @@
     </a-scene>
 
     <script>
+      // Acceder a la cámara con una mejor resolución
+      navigator.mediaDevices.getUserMedia({
+        video: {
+          facingMode: "environment", // Usa la cámara trasera
+          width: { ideal: 1280 }, // Ancho deseado
+          height: { ideal: 720 } // Altura deseada
+        }
+      }).then((stream) => {
+        const videoElement = document.querySelector('video');
+        videoElement.srcObject = stream; // Usa el flujo de video
+      }).catch((error) => {
+        console.error("Error al acceder a la cámara: ", error);
+      });
+
       // Esperar a que el marcador sea detectado
       document.querySelector("#marker").addEventListener("markerFound", () => {
         const videoEntity = document.querySelector("#youtube-video");
