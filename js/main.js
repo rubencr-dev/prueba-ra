@@ -26,3 +26,8 @@ document.querySelector('#example-target').addEventListener("targetLost", event =
   var iframe = document.querySelector('iframe');
     iframe.contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*');
 });
+
+// Abrir en YouTube
+document.querySelector("#abrirButton").addEventListener("click", function () {
+	window.open("https://www.youtube.com/embed/w32LwBmgSa4", "_blank");
+});
